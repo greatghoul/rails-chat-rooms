@@ -1,0 +1,13 @@
+<h2>New Chat Room</h2>
+
+<%= form_for @chat_room do |f| %>
+  <%= f.text_field :name, placeholder: "Enter room name" %>
+  <%= f.submit %>
+<% end %>
+
+<h2>Chat Room List</h2>
+<ul>
+  <% @chat_rooms.each do |room| %>
+    <li>(#<%= room.id %>) <%= link_to room.name, room %></li>
+  <% end %>  
+</ul>

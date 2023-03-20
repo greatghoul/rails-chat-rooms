@@ -1,0 +1,38 @@
+<h2>Chat Room #<%= @chat_room.id %> <%= @chat_room.name %></h2>
+  
+<div id="chat"></div>
+
+<%= form_tag do %>
+  <%= text_field_tag :message %>
+  <%= submit_tag "Send" %>
+<% end %>
+
+<script>
+  const cable =
+ActionCable.createConsumer("wss://rails-chat-rooms.greatghoul.repl.co/cable")
+  const channelParams = {
+    channel: "ChatChannel",
+    room_id: <%= @chat_room.id %>,
+  };
+  
+  const chatChannel = cable.subscriptions.create(channelParams, {
+    connected: function() {},
+    disconnected: function() {},
+    received: function(data) {
+      const chat = document.getElementById("chat");
+      const message = document.createElement("p");
+      message.innerHTML = data.message;
+      chat.appendChild(message);
+    },
+    speak: function(message) {
+      this.perform("receive", { message: message });
+    }
+  });
+
+  document.forms[0].addEventListener("submit", function(event) {
+    event.preventDefault();
+    const input = document.getElementById("message");
+    chatChannel.speak(input.value);
+    input.value = "";
+  });
+</script>
