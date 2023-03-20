@@ -70,6 +70,4 @@ Rails.application.configure do
 
   # Allow hosting on *.repl.co hosts
   config.hosts << /.*\.repl.co/
-
-  config.action_cable.disable_request_forgery_protection = true
 end

@@ -21,7 +21,7 @@ ActionCable.createConsumer("wss://rails-chat-rooms.greatghoul.repl.co/cable")
     received: function(data) {
       const chat = document.getElementById("chat");
       const message = document.createElement("p");
-      message.innerHTML = data.message;
+      message.innerHTML = `<strong>${data.user}</strong> : ${data.message}`;
       chat.appendChild(message);
     },
     speak: function(message) {

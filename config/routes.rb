@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'chat_rooms#index'
+  root to: 'home#index'
+  resources :users
   resources :chat_rooms
 end

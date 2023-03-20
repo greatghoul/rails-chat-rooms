@@ -4,6 +4,7 @@ class ChatChannel < ApplicationCable::Channel
   end
 
   def receive(data)
+    data[:user] = current_user.username
     ActionCable.server.broadcast(channel_stream_name, data)
   end
 
